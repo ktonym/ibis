@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
+import Paper from "material-ui/Paper";
 
 class ClientForm extends React.Component{
 
@@ -43,14 +44,20 @@ class ClientForm extends React.Component{
     render(){
         const {data,errors,loading} = this.state;
         return (
-            <form onSubmit={this.onSubmit}>
-                <TextField id="clientId" floatingLabelText="Client Id"
-                    disabled={true}/><br/>
-                <TextField id="clientName" floatingLabelText="Client Name"
-                    hintText="Enter client name" onChange={this.onChange}/><br/>
-                <FlatButton secondary={true} label="Cancel"/>
-                <FlatButton primary={true} label="Save" />
-            </form>
+            <Paper>
+                <TextField id="clientId" name="clientName" value={data.clientId}
+                           floatingLabelText="Client Id"
+                           disabled={true} /><br/>
+                <TextField id="clientName" name="clientName" value={data.clientName}
+                           floatingLabelText="Client Name"
+                           hintText="Enter client name"
+                           onChange={this.onChange}/><br/>
+                <FlatButton secondary={true} label="Cancel" />
+
+                <FlatButton primary label="Save"
+                    onClick={this.onSubmit}
+                />
+            </Paper>
         );
     }
 }

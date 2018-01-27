@@ -5,6 +5,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import TopNavigation from "./components/navigation/TopNavigation";
 import HomePage from "./components/pages/HomePage";
 import ClientPage from "./components/pages/ClientPage";
+import LoginPage from "./components/pages/LoginPage";
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
             <TopNavigation/>
             <Route location={location} path="/" exact component={HomePage}/>
             <Route location={location} path="/clients" exact component={ClientPage}/>
+            <Route location={location} path="/login" exact component={LoginPage}/>
           </div>
       </MuiThemeProvider>
     );
