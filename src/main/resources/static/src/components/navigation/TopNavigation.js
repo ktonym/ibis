@@ -6,7 +6,7 @@ import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Login from "./Login";
+/*import Login from "./Login";*/
 
 const Logged = () => (
    <IconMenu
@@ -24,8 +24,8 @@ const Logged = () => (
 
 class TopNavigation extends React.Component{
     state = {
-        open : false,
-        authenticated: true
+        open : false
+        /*authenticated: true*/
     };
 
     handleToggle = () => this.setState({open: !this.state.open});
@@ -36,7 +36,7 @@ class TopNavigation extends React.Component{
         return (
             <div>
                 <AppBar onLeftIconButtonClick={this.handleToggle} title="ibis"
-                        iconElementRight={this.state.authenticated ? <Logged/> : <Login logout={this.handleLogout}/>}
+                        /*iconElementRight={this.state.authenticated ? <Logged/> : <Login logout={this.handleLogout}/>}*/
                 ></AppBar>
                 <Drawer open={this.state.open}>
                     <AppBar iconElementLeft={<IconButton><NavigationClose/></IconButton>}

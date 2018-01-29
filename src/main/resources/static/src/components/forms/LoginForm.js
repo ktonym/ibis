@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
+import CircularProgressIndicator from "../loading/CircularProgressIndicator";
 
 
 const style = {
@@ -19,8 +21,13 @@ class LoginForm extends Component{
             username: "",
             password: ""
         },
+        loaded: true,
         errors: {}
     };
+
+    componentWillReceiveProps(nextProps){
+        this.setState({errors: nextProps.serverErrors, loaded: nextProps.loaded})
+    }
 
     onSubmit = (e) => {
       const errors = this.validate(this.state.data);
@@ -29,7 +36,7 @@ class LoginForm extends Component{
       e.preventDefault();
       this.setState({errors});
       if(Object.keys(errors).length===0){
-          this.setState({loading: true});
+          this.setState({loaded: false});
           this.props.submit(data);
       }
     };
@@ -46,26 +53,36 @@ class LoginForm extends Component{
     });
 
     render(){
-        const {data,errors,loading} = this.state;
+        const {data,errors,loaded} = this.state;
         return (
-            <Paper style={style} zDepth={1}>
-                <h3>Please login</h3>
+            <Paper style={style} zDepth={2}>
+                <h4>Please login</h4>
                 <TextField value={data.username}
                     id="username" name="username" hintText="Enter username"
                     onChange={this.onChange} floatingLabelText="Username"
+                    errorText={errors.username}
                 /><br/>
                 <TextField type="password" value={data.password}
                     id="password" name="password" hintText="Enter password"
                     onChange={this.onChange} floatingLabelText="Password"
+                    errorText={errors.password}
                 /><br/>
-                <RaisedButton fullWidth={false} label="Login" primary={true} onClick={this.onSubmit}/>
+
+                { loaded ? <RaisedButton fullWidth={false} label="Login" primary={true} onClick={this.onSubmit}/>
+                    : <CircularProgressIndicator/>
+                }
             </Paper>
         );
     }
 }
 
+const mapStateToProps = (state) => ({
+   serverErrors: state.formErrors.user,
+   loaded: state.user.loaded
+});
+
 LoginForm.propTypes = {
     submit: PropTypes.func.isRequired
 };
 
-export default LoginForm;
+export default connect(mapStateToProps)(LoginForm);

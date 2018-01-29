@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import Paper from "material-ui/Paper";
+import CircularProgressIndicator from "../loading/CircularProgressIndicator";
 
 class ClientForm extends React.Component{
 
@@ -46,17 +47,17 @@ class ClientForm extends React.Component{
         return (
             <Paper>
                 <TextField id="clientId" name="clientName" value={data.clientId}
-                           floatingLabelText="Client Id"
+                           floatingLabelText="Client Id" errorText={errors.clientId}
                            disabled={true} /><br/>
                 <TextField id="clientName" name="clientName" value={data.clientName}
-                           floatingLabelText="Client Name"
+                           floatingLabelText="Client Name" errorText={errors.clientName}
                            hintText="Enter client name"
                            onChange={this.onChange}/><br/>
                 <FlatButton secondary={true} label="Cancel" />
 
-                <FlatButton primary label="Save"
-                    onClick={this.onSubmit}
-                />
+                { loading ? <CircularProgressIndicator/>
+                    : <FlatButton primary label="Save" onClick={this.onSubmit}/>
+                }
             </Paper>
         );
     }

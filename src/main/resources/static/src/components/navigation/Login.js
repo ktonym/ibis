@@ -4,19 +4,21 @@ import FlatButton from "material-ui/FlatButton";
 
 class Login extends Component{
 
-    handleClick = e => {
+    /*handleClick = e => {
       this.props.logout
-    };
+    };*/
 
     render(){
         return (
-            <FlatButton onClick={this.handleClick} label="Login" />
+            <FlatButton {/*onClick={this.handleClick}*/} label="Login" />
         );
     }
 }
 
+/*
 Login.propTypes = {
     logout: PropTypes.func.isRequired
 };
+*/
 
 export default Login;
