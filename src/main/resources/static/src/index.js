@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter,Route } from "react-router-dom";
 import { Provider } from "react-redux";
+import {composeWithDevTools} from "redux-devtools-extension";
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import './index.css';
@@ -13,7 +14,7 @@ import rootSaga from "./rootSaga";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     rootReducer,
-    applyMiddleware(sagaMiddleware)
+    composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 sagaMiddleware.run(rootSaga);
