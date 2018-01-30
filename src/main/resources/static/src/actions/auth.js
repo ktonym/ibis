@@ -1,7 +1,12 @@
-import {USER_LOGIN, USER_LOGIN_FAILED, USER_LOGOUT} from "../types";
+import {USER_LOGIN, USER_LOGIN_FAILED, USER_LOGIN_SUCCESS, USER_LOGOUT} from "../types";
 
 export const loginRequest = (data) => ({
     type: USER_LOGIN,
+    data
+});
+
+export const loginSuccess = (data) => ({
+    type: USER_LOGIN_SUCCESS,
     data
 });
 
