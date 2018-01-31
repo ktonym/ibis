@@ -1,4 +1,4 @@
-import {USER_LOGIN, USER_LOGIN_FAILED, USER_LOGOUT} from "../types";
+import {USER_LOGIN, USER_LOGIN_FAILED, USER_LOGOUT,RESET_PASS_REQUEST} from "../types";
 
 export const loginRequest = (data) => ({
     type: USER_LOGIN,
@@ -12,4 +12,9 @@ export const loginFailed = errors => ({
 
 export const logoutRequest = () => ({
     type: USER_LOGOUT
+});
+
+export const resetPassRequest = email => ({
+    type: RESET_PASS_REQUEST,
+    email
 });

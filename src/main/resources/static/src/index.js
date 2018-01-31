@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter,Route } from "react-router-dom";
+import { Router,Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import { createStore, applyMiddleware } from "redux";
@@ -10,6 +10,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from "./rootReducer";
 import rootSaga from "./rootSaga";
+import customHistory from "./history";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -20,9 +21,9 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-    <BrowserRouter>
+    <Router history={customHistory}>
         <Provider store={store}>
             <Route component={App}/>
         </Provider>
-    </BrowserRouter>, document.getElementById('root'));
+    </Router>, document.getElementById('root'));
 registerServiceWorker();
