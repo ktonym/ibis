@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from "react-redux";
 import AppBar from "material-ui/AppBar";
 import MenuItem from "material-ui/MenuItem";
 import Drawer from 'material-ui/Drawer';
@@ -33,23 +34,30 @@ class TopNavigation extends React.Component{
     handleLogout = () => this.setState({authenticated: !this.state.authenticated});
 
     render(){
+        const {isAuthenticated}= this.props;
         return (
             <div>
                 <AppBar onLeftIconButtonClick={this.handleToggle} title="ibis"
                         /*iconElementRight={this.state.authenticated ? <Logged/> : <Login logout={this.handleLogout}/>}*/
                 ></AppBar>
-                <Drawer open={this.state.open}>
-                    <AppBar iconElementLeft={<IconButton><NavigationClose/></IconButton>}
-                            onLeftIconButtonClick={this.handleToggle} title="ibis"/>
-                    <MenuItem>Clients</MenuItem>
-                    <MenuItem>Products</MenuItem>
-                    <MenuItem>Policies</MenuItem>
-                    <MenuItem>Claims</MenuItem>
-                    <MenuItem>Care</MenuItem>
-                </Drawer>
+                { isAuthenticated &&
+                    <Drawer open={this.state.open}>
+                        <AppBar iconElementLeft={<IconButton><NavigationClose/></IconButton>}
+                                onLeftIconButtonClick={this.handleToggle} title="ibis"/>
+                        <MenuItem>Clients</MenuItem>
+                        <MenuItem>Products</MenuItem>
+                        <MenuItem>Policies</MenuItem>
+                        <MenuItem>Claims</MenuItem>
+                        <MenuItem>Care</MenuItem>
+                    </Drawer>
+                }
             </div>
         );
     }
 }
 
-export default TopNavigation;
+const mapStateToProps = (state) => ({
+   isAuthenticated: !!state.user.access_token
+});
+
+export default connect(mapStateToProps)(TopNavigation);
