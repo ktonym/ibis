@@ -3,6 +3,7 @@ import {USER_LOGIN,USER_LOGOUT,RESET_PASS_REQUEST} from "../types";
 import api from "../api";
 import {loginFailed, loginSuccess, resetPassReqFailed, resetPassReqSuccess} from "../actions/auth";
 import customHistory from "../history";
+import setAuthorizationHeader from "../utils/setAuthorizationHeader";
 
 export function* watchPassResetReq() {
     yield takeLatest(RESET_PASS_REQUEST,resetPassReqSaga);
@@ -24,9 +25,10 @@ export function* watchLogin() {
 export function* loginSaga(action) {
     try {
         /*yield console.log(JSON.stringify(action.data));*/
-        const token = yield call(api.user.login,action.data);
-        localStorage.setItem('rhinoJWT',JSON.stringify(token));
-        yield put(loginSuccess(token));
+        const user = yield call(api.user.login,action.data);
+        yield localStorage.setItem('rhinoJWT',JSON.stringify(user));
+        yield setAuthorizationHeader(user.access_token);
+        yield put(loginSuccess(user));
         customHistory.push("/clients");
     } catch (e){
         yield put(loginFailed({ errors: e}));
@@ -38,6 +40,7 @@ export function* watchLogout() {
 }
 
 export function* logoutSaga() {
-    yield localStorage.removeItem('rhinoJWT');
+    yield localStorage.removeItem("rhinoJWT");
+    yield setAuthorizationHeader();
     customHistory.push("/login");
 }

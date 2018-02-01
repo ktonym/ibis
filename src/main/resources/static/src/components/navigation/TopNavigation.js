@@ -51,7 +51,7 @@ class TopNavigation extends React.Component{
                     <Drawer open={this.state.open}>
                         <AppBar iconElementLeft={<IconButton><NavigationClose/></IconButton>}
                                 onLeftIconButtonClick={this.handleToggle} title="ibis"/>
-                        <MenuItem>Clients</MenuItem>
+                        <MenuItem >Clients</MenuItem>
                         <MenuItem>Products</MenuItem>
                         <MenuItem>Policies</MenuItem>
                         <MenuItem>Claims</MenuItem>
