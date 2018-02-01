@@ -1,4 +1,4 @@
-import {USER_LOGOUT, USER_LOGIN_SUCCESS, USER_LOGIN, RESET_PASS_REQ_SUCCESS,RESET_PASS_REQ_FAILED} from "../types";
+import {USER_LOGOUT, USER_LOGIN_SUCCESS, RESET_PASS_REQ_SUCCESS,RESET_PASS_REQ_FAILED} from "../types";
 
 /*Need to create loaded status on user reducer*/
 export default function user(state = {}, action={}){

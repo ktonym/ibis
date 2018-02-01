@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { Route,Router } from "react-router-dom";
+import { Route } from "react-router-dom";
 import {connect} from "react-redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import TopNavigation from "./components/navigation/TopNavigation";
@@ -14,7 +14,7 @@ import UserRoute from "./components/routes/UserRoute";
 
 class App extends Component {
   render() {
-    const {location,isAuthenticated} = this.props;
+    const {location} = this.props;
     return (
       <MuiThemeProvider>
           <div>

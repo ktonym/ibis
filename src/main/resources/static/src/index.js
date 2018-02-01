@@ -11,12 +11,22 @@ import registerServiceWorker from './registerServiceWorker';
 import rootReducer from "./rootReducer";
 import rootSaga from "./rootSaga";
 import customHistory from "./history";
+/*import decode from "jwt-decode";*/
+import {loginSuccess} from "./actions/auth";
+import setAuthorizationHeader from "./utils/setAuthorizationHeader";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
+
+if(localStorage.rhinoJWT){
+    //const payload = decode(localStorage.rhinoJWT);
+    const user = JSON.parse(localStorage.getItem("rhinoJWT"));
+    setAuthorizationHeader(user.access_token);
+    store.dispatch(loginSuccess(user));
+}
 
 sagaMiddleware.run(rootSaga);
 

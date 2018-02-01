@@ -1,11 +1,29 @@
-import React from "react";
+import React,{Component} from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import FlatButton from "material-ui/FlatButton";
+import {logoutRequest} from "../../actions/auth";
 
-const HomePage = () => (
-    <div>
-        <h1>Homepage</h1>
-        <Link to="/login">Login</Link>
-    </div>
-);
+class HomePage extends Component{
+    render(){
+        const {isAuthenticated,logout} = this.props;
+        return (
+            <div>
+                <h3>Homepage</h3>
+                { isAuthenticated ? (<FlatButton onClick={()=>logout()} label="Logout"/>) : (<Link to="/login">Login</Link>)}
+            </div>
+        );
+    }
+}
 
-export default HomePage;
+const mapStateToProps = (state) =>({
+   isAuthenticated: !!state.user.access_token
+});
+
+HomePage.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    logout: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps,{logout: logoutRequest})(HomePage);

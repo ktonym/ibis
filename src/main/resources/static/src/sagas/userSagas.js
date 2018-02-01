@@ -1,5 +1,5 @@
 import {call,takeLatest,put} from "redux-saga/effects";
-import {USER_LOGIN,RESET_PASS_REQUEST} from "../types";
+import {USER_LOGIN,USER_LOGOUT,RESET_PASS_REQUEST} from "../types";
 import api from "../api";
 import {loginFailed, loginSuccess, resetPassReqFailed, resetPassReqSuccess} from "../actions/auth";
 import customHistory from "../history";
@@ -25,9 +25,19 @@ export function* loginSaga(action) {
     try {
         /*yield console.log(JSON.stringify(action.data));*/
         const token = yield call(api.user.login,action.data);
+        localStorage.setItem('rhinoJWT',JSON.stringify(token));
         yield put(loginSuccess(token));
         customHistory.push("/clients");
     } catch (e){
         yield put(loginFailed({ errors: e}));
     }
+}
+
+export function* watchLogout() {
+    yield takeLatest(USER_LOGOUT,logoutSaga);
+}
+
+export function* logoutSaga() {
+    yield localStorage.removeItem('rhinoJWT');
+    customHistory.push("/login");
 }

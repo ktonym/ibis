@@ -8,19 +8,21 @@ import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import FlatButton from "material-ui/FlatButton";
+/*import FlatButton from "material-ui/FlatButton";*/
 import {logoutRequest} from "../../actions/auth";
 /*import Login from "./Login";*/
 
-const Logged = () => (
-   <IconMenu
-    iconButtonElement={<IconButton><MoreVertIcon/></IconButton>}
-    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-   >
-       <MenuItem primaryText="Logout"/>
-   </IconMenu>
-);
+const Logged = ({onClickLogout}) => {
+    return(
+        <IconMenu
+            iconButtonElement={<IconButton><MoreVertIcon/></IconButton>}
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        >
+            <MenuItem primaryText="Logout" onClick={onClickLogout}/>
+        </IconMenu>
+    );
+};
 
 /*const Loginn = (handleClick) => (
   <FlatButton onClick={handleClick} label="Login" />
@@ -41,7 +43,8 @@ class TopNavigation extends React.Component{
         return (
             <div>
                 <AppBar onLeftIconButtonClick={this.handleToggle} title="minsys"
-                        iconElementRight={isAuthenticated && <FlatButton onClick={this.handleLogout} label="Logout"/> }
+                    iconElementRight={isAuthenticated && <Logged onClickLogout={this.handleLogout}/> }
+                        /*iconElementRight={isAuthenticated && <FlatButton onClick={this.handleLogout} label="Logout"/> }*/
                         /*iconElementRight={this.state.authenticated ? <Logged/> : <Login logout={this.handleLogout}/>}*/
                 ></AppBar>
                 { isAuthenticated &&
