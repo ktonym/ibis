@@ -8,8 +8,13 @@ import Snackbar from "material-ui/Snackbar";
 class ForgotPasswordPage extends React.Component{
 
     state = {
-        success: false
+        success: false,
+        error: {}
     };
+
+    componentWillReceiveProps(nextProps){
+        this.setState({success: nextProps.success, error: nextProps.error})
+    }
 
     onSubmit = email => this.props.resetPassReq(email);
     render(){
@@ -30,6 +35,11 @@ class ForgotPasswordPage extends React.Component{
 
 }
 
+const mapStateToProps = (state) => ({
+    error: state.user.error,
+    success: state.user.success
+});
+
 const mapDispatchToProps = (dispatch) => ({
     resetPassReq: (email) => dispatch(resetPassRequest(email))
 });
@@ -38,4 +48,4 @@ ForgotPasswordPage.propTypes = {
     resetPassReq: PropTypes.func.isRequired
 };
 
-export default connect(null,mapDispatchToProps)(ForgotPasswordPage);
+export default connect(mapStateToProps,mapDispatchToProps)(ForgotPasswordPage);

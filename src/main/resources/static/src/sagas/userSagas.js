@@ -1,17 +1,49 @@
 import {call,takeLatest,put} from "redux-saga/effects";
-import {USER_LOGIN,USER_LOGOUT,RESET_PASS_REQUEST} from "../types";
+import {USER_LOGIN, USER_LOGOUT, RESET_PASS_REQUEST, VALIDATE_TOKEN, CHANGE_PASS_REQUEST} from "../types";
 import api from "../api";
-import {loginFailed, loginSuccess, resetPassReqFailed, resetPassReqSuccess} from "../actions/auth";
+import {
+    changePassFailed,
+    loginFailed, loginSuccess, resetPassReqFailed, resetPassReqSuccess, validateTokenFailed,
+    validateTokenSuccess
+} from "../actions/auth";
 import customHistory from "../history";
 import setAuthorizationHeader from "../utils/setAuthorizationHeader";
 
-export function* watchPassResetReq() {
+
+export function* watchChangePassword() {
+    yield takeLatest(CHANGE_PASS_REQUEST,changePasswordSaga);
+}
+
+export function* changePasswordSaga(action) {
+    try {
+        yield call(api.user.changePassword,action.data);
+        customHistory.push("/login");
+    } catch (e){
+        yield put(changePassFailed({errors: e}));
+    }
+}
+
+export function* watchValidateToken() {
+    yield takeLatest(VALIDATE_TOKEN,validateTokenSaga);
+}
+
+export function* validateTokenSaga(action) {
+    try{
+        const result = yield call(api.user.validateToken,action.token);
+        yield put(validateTokenSuccess(result));
+    } catch (e){
+        yield put(validateTokenFailed({errors: e}));
+    }
+}
+
+export function* watchResetPassReq() {
     yield takeLatest(RESET_PASS_REQUEST,resetPassReqSaga);
 }
 
 export function* resetPassReqSaga(action) {
     try {
-        yield console.log(action.email);
+       // yield console.log(action.email);
+        yield call(api.user.resetPasswordRequest,action.email);
         yield put(resetPassReqSuccess);
     } catch (e){
         yield put(resetPassReqFailed({errors: e}))

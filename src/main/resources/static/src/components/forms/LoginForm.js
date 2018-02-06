@@ -32,12 +32,10 @@ class LoginForm extends Component{
     onSubmit = (e) => {
       const errors = this.validate(this.state.data);
       const {data} = this.state;
-      console.info("From LoginForm");
-      console.log(data);
       e.preventDefault();
       this.setState({errors});
       if(Object.keys(errors).length===0){
-          this.setState({loaded: false});
+          this.setState({loaded: false}); //need to send this to the store
           this.props.submit(data);
       }
     };

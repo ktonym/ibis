@@ -11,6 +11,7 @@ import ForgotPasswordPage from "./components/pages/ForgotPasswordPage";
 import DashBoard from "./components/pages/DashBoard";
 import GuestRoute from "./components/routes/GuestRoute";
 import UserRoute from "./components/routes/UserRoute";
+import ResetPasswordPage from "./components/pages/ResetPasswordPage";
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
             <Route location={location} path="/" exact component={HomePage}/>
             <GuestRoute location={location} path="/login" exact component={LoginPage}/>
             <GuestRoute location={location} path="/forgot_password" exact component={ForgotPasswordPage}/>
+            <GuestRoute location={location} path="/reset_password/:token" exact component={ResetPasswordPage}/>
             <UserRoute location={location} path="/dashboard" exact component={DashBoard}/>
             <UserRoute location={location} path="/clients" exact component={ClientPage}/>
           </div>
