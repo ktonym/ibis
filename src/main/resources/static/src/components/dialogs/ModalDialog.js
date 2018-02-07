@@ -6,7 +6,7 @@ import FlatButton from "material-ui/FlatButton";
 class ModalDialog extends Component{
 
     state = {
-        open: true,
+        open: this.props.open,
     };
 
     handleClose = () => {
@@ -19,22 +19,16 @@ class ModalDialog extends Component{
                 label="Close"
                 primary={true}
                 onClick={this.handleClose}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                disabled={true}
-                onClick={this.handleClose}
-            />,
-        ];
-        const {message,open} = this.props;
+            />];
+        const {message} = this.props;
+        const {open} = this.state;
         return (
             <div>
                 <Dialog
                     title="Dialog With Actions"
                     actions={actions}
                     modal={true}
-                    open={open&&this.state.open}>
+                    open={open}>
                     {message}
                 </Dialog>
             </div>

@@ -46,8 +46,8 @@ export function* resetPassReqSaga(action) {
         yield call(api.user.resetPasswordRequest,action.email);
         yield put(resetPassReqSuccess);
     } catch (e){
-        yield console.log(e);
-        yield put(resetPassReqFailed({errors: e.response.data.errors}))
+        //yield console.log(e);
+        yield put(resetPassReqFailed({errors: e.response.data.errors, success: e.response.data.success}))
     }
 }
 

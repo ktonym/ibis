@@ -13,6 +13,7 @@ const style = {
     margin: 20,
     textAlign: 'center',
     display: 'inline-block',
+    position: 'relative'
 };
 
 class LoginForm extends Component{

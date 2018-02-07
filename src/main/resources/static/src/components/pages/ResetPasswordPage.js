@@ -29,7 +29,7 @@ class ResetPasswordPage extends Component{
             <div>
                 { loading && <h1>Validating...</h1> }
                 { !loading && success && <ResetPasswordForm submit={this.submit} token={token}/> }
-                { !loading && !success && <ModalDialog message={"Invalid Token"} open={true}/> }
+                { !loading && !success && <ModalDialog title="Password Reset Failed" message={"Invalid Token"} open={true}/> }
                 { message && <ModalDialog message={message} open={true} />}
             </div>
         );
