@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import ResetPasswordForm from "../forms/ResetPasswordForm";
 import { changePassRequest,validateTokenRequest } from "../../actions/auth";
+import ModalDialog from "../dialogs/ModalDialog";
 
 class ResetPasswordPage extends Component{
     state = {
         loading: true,
-        success: false
+        success: false,
+        message: ''
     };
 
     submit = (data) => this.props.changePassword(data);
@@ -17,17 +19,18 @@ class ResetPasswordPage extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        this.setState({loading: nextProps.loading,success: nextProps.success})
+        this.setState({loading: nextProps.loading, success: nextProps.success, message: nextProps.message})
     }
 
     render(){
-        const { loading, success } = this.state;
+        const { loading, success, message } = this.state;
         const token = this.props.match.params.token;
         return (
             <div>
                 { loading && <h1>Validating...</h1> }
                 { !loading && success && <ResetPasswordForm submit={this.submit} token={token}/> }
-                { !loading && !success && <h1>Invalid Token</h1> }
+                { !loading && !success && <ModalDialog message={"Invalid Token"} open={true}/> }
+                { message && <ModalDialog message={message} open={true} />}
             </div>
         );
     }
@@ -45,7 +48,8 @@ ResetPasswordPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     loading: !!state.user.validating,
-    success: !!state.user.validation
+    success: !!state.user.validation,
+    globalErrors: !!state.user.errors
 });
 
 export default connect(mapStateToProps,{changePassword: changePassRequest,validateToken: validateTokenRequest})(ResetPasswordPage);

@@ -13,7 +13,7 @@ export default function user(state = {}, action={}){
         case RESET_PASS_REQ_SUCCESS:
             return {...state, success: true};
         case RESET_PASS_REQ_FAILED:
-            return {...state, errors: action.errors};
+            return action.errors;
         case VALIDATE_TOKEN_SUCCESS:
             return {...state, validation: action.validation};
         case VALIDATE_TOKEN_FAILED:
