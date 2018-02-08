@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {resetPassRequest} from "../../actions/auth";
 import ForgotPasswordForm from "../forms/ForgotPasswordForm";
 import Snackbar from "material-ui/Snackbar";
-import ModalDialog from "../dialogs/ModalDialog";
 
 class ForgotPasswordPage extends React.Component{
 
@@ -24,14 +23,12 @@ class ForgotPasswordPage extends React.Component{
             <div style={{position: 'relative'}}>
                 { success ? <Snackbar
                     open={success}
-                    message="Mail sent to your mailbox"
-                    autoHideDuration={4000}
+                    message="Check your mailbox for instructions to reset your password."
+                    autoHideDuration={6000}
                     //onRequestClose={this.handleRequestClose}
                 /> :
                     <ForgotPasswordForm style={{marginLeft: '50%'}} submit={this.onSubmit}/>
                 }
-                { errors && <ModalDialog message={errors.global} open={true}/> }
-
             </div>
         );
     }
@@ -40,7 +37,7 @@ class ForgotPasswordPage extends React.Component{
 
 const mapStateToProps = (state) => ({
     errors: state.user.errors,
-    success: state.user.success
+    success: state.user.resetSent
 });
 
 const mapDispatchToProps = (dispatch) => ({

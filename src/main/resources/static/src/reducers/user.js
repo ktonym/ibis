@@ -1,6 +1,5 @@
 import {
-    USER_LOGOUT, USER_LOGIN_SUCCESS, RESET_PASS_REQ_SUCCESS, RESET_PASS_REQ_FAILED,
-    VALIDATE_TOKEN_SUCCESS, VALIDATE_TOKEN_FAILED
+    USER_LOGOUT, USER_LOGIN_SUCCESS, RESET_PASS_REQ_SUCCESS, VALIDATE_TOKEN_SUCCESS, VALIDATE_TOKEN_FAILED
 } from "../types";
 
 /*Need to create loaded status on user reducer*/
@@ -11,9 +10,7 @@ export default function user(state = {}, action={}){
         case USER_LOGOUT:
             return {};
         case RESET_PASS_REQ_SUCCESS:
-            return {...state, success: true};
-        case RESET_PASS_REQ_FAILED:
-            return action.errors;
+            return {...state,resetSent: action.resetSent};
         case VALIDATE_TOKEN_SUCCESS:
             return {...state, validation: action.validation};
         case VALIDATE_TOKEN_FAILED:

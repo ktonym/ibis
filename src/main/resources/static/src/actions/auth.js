@@ -28,8 +28,9 @@ export const resetPassRequest = email => ({
     email
 });
 
-export const resetPassReqSuccess = () => ({
-    type: RESET_PASS_REQ_SUCCESS
+export const resetPassReqSuccess = result => ({
+    type: RESET_PASS_REQ_SUCCESS,
+    resetSent: result.success
 });
 
 export const resetPassReqFailed = (errors) => ({

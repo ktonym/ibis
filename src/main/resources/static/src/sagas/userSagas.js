@@ -43,11 +43,11 @@ export function* watchResetPassReq() {
 export function* resetPassReqSaga(action) {
     try {
        // yield console.log(action.email);
-        yield call(api.user.resetPasswordRequest,action.email);
-        yield put(resetPassReqSuccess);
+        const result = yield call(api.user.resetPasswordRequest,action.email);
+        yield put(resetPassReqSuccess(result));
     } catch (e){
         //yield console.log(e);
-        yield put(resetPassReqFailed({errors: e.response.data.errors, success: e.response.data.success}))
+        yield put(resetPassReqFailed(e.response.data))
     }
 }
 

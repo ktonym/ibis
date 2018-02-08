@@ -39,8 +39,8 @@ class LoginForm extends Component{
       e.preventDefault();
       this.setState({errors});
       if(Object.keys(errors).length===0){
-          //this.setState({loaded: false}); //need to send this to the store
-          this.props.loginFailed();
+          this.setState({loaded: false}); //need to send this to the store
+          //this.props.loginFailed();
           this.props.submit(data);
       }
     };
