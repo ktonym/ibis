@@ -4,7 +4,8 @@ import {connect} from "react-redux";
 import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
-import CircularProgressIndicator from "../loading/CircularProgressIndicator";
+// import CircularProgressIndicator from "../loading/CircularProgressIndicator";
+import {loginFailed} from "../../actions/auth";
 
 
 const style = {
@@ -27,6 +28,8 @@ class LoginForm extends Component{
     };
 
     componentWillReceiveProps(nextProps){
+        console.info("Checking current state");
+        console.log(this.state);
         this.setState({errors: nextProps.serverErrors, loaded: nextProps.loaded})
     }
 
@@ -36,7 +39,8 @@ class LoginForm extends Component{
       e.preventDefault();
       this.setState({errors});
       if(Object.keys(errors).length===0){
-          this.setState({loaded: false}); //need to send this to the store
+          //this.setState({loaded: false}); //need to send this to the store
+          this.props.loginFailed();
           this.props.submit(data);
       }
     };
@@ -56,7 +60,7 @@ class LoginForm extends Component{
         const {data,errors,loaded} = this.state;
         return (
             <Paper style={style} zDepth={2}>
-                <h4>Please login</h4>
+                <h5>Please login</h5>
                 <TextField value={data.username}
                     id="username" name="username" hintText="Enter username"
                     onChange={this.onChange} floatingLabelText="Username"
@@ -67,22 +71,25 @@ class LoginForm extends Component{
                     onChange={this.onChange} floatingLabelText="Password"
                     errorText={errors.password}
                 /><br/>
+                <RaisedButton fullWidth={false} label="Login" primary={true} onClick={this.onSubmit}/>
 
-                { loaded ? <RaisedButton fullWidth={false} label="Login" primary={true} onClick={this.onSubmit}/>
+                {/*{ loaded ? <RaisedButton fullWidth={false} label="Login" primary={true} onClick={this.onSubmit}/>
                     : <CircularProgressIndicator/>
-                }
+                }*/}
+                { errors.message && <p>{errors.message}</p>}
             </Paper>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-   serverErrors: state.formErrors.user,
+   serverErrors: state.formErrors.login,
    loaded: state.user.loaded
 });
 
 LoginForm.propTypes = {
-    submit: PropTypes.func.isRequired
+    submit: PropTypes.func.isRequired,
+    loginFailed: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(LoginForm);
+export default connect(mapStateToProps,{loginFailed})(LoginForm);

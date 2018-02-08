@@ -64,7 +64,7 @@ export function* loginSaga(action) {
         yield put(loginSuccess(user));
         customHistory.push("/clients");
     } catch (e){
-        yield put(loginFailed({ errors: e}));
+        yield put(loginFailed(e.response.data));
     }
 }
 

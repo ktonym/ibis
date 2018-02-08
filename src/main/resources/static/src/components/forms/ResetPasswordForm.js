@@ -5,6 +5,15 @@ import RaisedButton from "material-ui/RaisedButton";
 import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 
+const style = {
+    height: 340,
+    width: 440,
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+    position: 'relative'
+};
+
 class ResetPasswordForm extends Component{
 
     state = {
@@ -42,8 +51,8 @@ class ResetPasswordForm extends Component{
     render(){
         const {data,errors,loaded} = this.state;
         return (
-            <Paper zDepth={2}>
-                <h4>Please change your password </h4>
+            <Paper zDepth={2} style={style}>
+                <h5>Please change your password </h5>
                 <TextField value={data.newPassword} type="password"
                            id="newPassword" name="newPassword" hintText="Enter New Password"
                            onChange={this.onChange} floatingLabelText="New Password"

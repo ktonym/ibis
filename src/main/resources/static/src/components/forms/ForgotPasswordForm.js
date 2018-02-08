@@ -5,13 +5,24 @@ import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
+
+const style = {
+    height: 340,
+    width: 440,
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+    position: 'relative',
+    //align: 'center'
+};
+
 class ForgotPasswordForm extends Component{
 
     state = {
         data: {
             email: ""
         },
-        loading: false,
+        //loading: false,
         errors: {}
     };
 
@@ -37,14 +48,14 @@ class ForgotPasswordForm extends Component{
     };
 
     render(){
-        const {errors,data,loading} = this.state;
+        const {errors,data} = this.state;
         return (
-            <Paper>
-                <p>Enter your email to reset your password</p>
+            <Paper zDepth={2} style={style} >
+                <h5>Enter your email to reset your password</h5>
                 <TextField name="email" id="email" value={data.email}
                            floatingLabelText="Email" errorText={errors.email}
                            hintText="Enter your email" onChange={this.onChange}/><br/>
-                <RaisedButton fullWidth={true} primary={true} label="Send" onClick={this.onSubmit}/>
+                <RaisedButton fullWidth={false} primary={true} label="Send" onClick={this.onSubmit}/>
             </Paper>
         );
     }
