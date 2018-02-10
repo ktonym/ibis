@@ -1,4 +1,4 @@
-import {ADD_CLIENT_SUCCESS,ADD_CLIENT_FAILED} from "../types";
+import {ADD_CLIENT_SUCCESS, ADD_CLIENT_FAILED, CLIENT_SEARCH_SUCCESS} from "../types";
 import { createSelector } from "reselect";
 
 export default function clients(state = {}, action = {}){
@@ -7,6 +7,8 @@ export default function clients(state = {}, action = {}){
             return { ...state, ...action.data.entities.clients };
         case ADD_CLIENT_FAILED:
             return { ...state, ...action.message };
+        case CLIENT_SEARCH_SUCCESS:
+            return action.data.data;
         default:
             return state;
     }

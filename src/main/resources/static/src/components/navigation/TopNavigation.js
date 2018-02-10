@@ -11,6 +11,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 /*import FlatButton from "material-ui/FlatButton";*/
 import {logoutRequest} from "../../actions/auth";
 /*import Login from "./Login";*/
+import customHistory from "../../history";
 
 const Logged = ({onClickLogout}) => {
     return(
@@ -50,12 +51,12 @@ class TopNavigation extends React.Component{
                 { isAuthenticated &&
                     <Drawer open={this.state.open}>
                         <AppBar iconElementLeft={<IconButton><NavigationClose/></IconButton>}
-                                onLeftIconButtonClick={this.handleToggle} title="ibis"/>
-                        <MenuItem >Clients</MenuItem>
-                        <MenuItem>Products</MenuItem>
-                        <MenuItem>Policies</MenuItem>
-                        <MenuItem>Claims</MenuItem>
-                        <MenuItem>Care</MenuItem>
+                                onLeftIconButtonClick={this.handleToggle} title="minsys"/>
+                        <MenuItem onClick={() => customHistory.push("/clients")}>Clients</MenuItem>
+                        <MenuItem onClick={() => customHistory.push("/products")}>Products</MenuItem>
+                        <MenuItem onClick={() => customHistory.push("/policies")}>Policies</MenuItem>
+                        <MenuItem onClick={() => customHistory.push("/claims")}>Claims</MenuItem>
+                        <MenuItem onClick={() => customHistory.push("/care")}>Care</MenuItem>
                     </Drawer>
                 }
             </div>
