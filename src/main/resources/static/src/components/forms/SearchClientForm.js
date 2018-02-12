@@ -34,6 +34,7 @@ class SearchClientForm extends Component{
     };
 
     render(){
+        const {clients} = this.props;
         return (
             <div>
                 <SearchBar
@@ -46,8 +47,22 @@ class SearchClientForm extends Component{
                         <TableRow>
                             <TableHeaderColumn>ID</TableHeaderColumn>
                             <TableHeaderColumn>Client Name</TableHeaderColumn>
+                            <TableHeaderColumn>Join Date</TableHeaderColumn>
+                            <TableHeaderColumn>KRA PIN</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
+                    <TableBody>
+                    { clients && clients.map((client,index)=>{
+                        return (
+                            <TableRow key={index}>
+                                <TableRowColumn>{client.clientId}</TableRowColumn>
+                                <TableRowColumn>{client.clientName}</TableRowColumn>
+                                <TableRowColumn>{client.joinDate}</TableRowColumn>
+                                <TableRowColumn>{client.pin}</TableRowColumn>
+                            </TableRow>
+                        );
+                    })}
+                    </TableBody>
                 </Table>
             </div>
         );
@@ -62,9 +77,18 @@ SearchClientForm.propTypes = {
             clientId: PropTypes.number.isRequired,
             clientName: PropTypes.string.isRequired,
             pin: PropTypes.string.isRequired,
-            joinDate: PropTypes.instanceOf(Date)
+            joinDate: PropTypes.string.isRequired //PropTypes.instanceOf(Date)
         })
     ).isRequired
+};
+
+const getClientRow = (client, index) => {
+     return <TableRow>
+                <TableRowColumn>{client.clientId}</TableRowColumn>
+                <TableRowColumn>{client.clientName}</TableRowColumn>
+                <TableRowColumn>{client.joinDate}</TableRowColumn>
+                <TableRowColumn>{client.pin}</TableRowColumn>
+            </TableRow>;
 };
 
 export default SearchClientForm;

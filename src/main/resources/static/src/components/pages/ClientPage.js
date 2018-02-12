@@ -32,7 +32,7 @@ class ClientPage extends React.Component{
     render(){
         return(
             <Paper style={style.paper}>
-                <SearchClientForm searchClient={this.searchClient}/>
+                <SearchClientForm searchClient={this.searchClient} clients={this.props.clients}/>
                 {/*<ClientForm submit={this.submit}/>*/}
             </Paper>
         );
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-    clients: state.clients
+    clients: state.clients.data
 });
 
 ClientPage.propTypes = {
@@ -54,4 +54,4 @@ ClientPage.propTypes = {
     clientSearch: PropTypes.func.isRequired
 };
 
-export default connect(null,mapDispatchToProps)(ClientPage);
+export default connect(mapStateToProps,mapDispatchToProps)(ClientPage);

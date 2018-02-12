@@ -8,7 +8,7 @@ export default function clients(state = {}, action = {}){
         case ADD_CLIENT_FAILED:
             return { ...state, ...action.message };
         case CLIENT_SEARCH_SUCCESS:
-            return action.data.data;
+            return action.data;
         default:
             return state;
     }
